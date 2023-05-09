@@ -8,16 +8,22 @@ function init() {
   // get external json data 
   //then convert it back into JS, 
   //then save it into the houses array.
-  
-  
-  // loop through the houses array and populate the
-  // dropdown with the house names and codes.
-  houses.forEach((item) => {
-    const option = document.createElement("OPTION");
-    option.value = item.code;
-    option.innerText = item.name;
-    house.appendChild(option);
-  });
+  fetch("https://assets.codepen.io/2538893/houses.json")
+    .then((response) => response.json())
+    .then((data) => {
+      houses = data;
+      // loop through the houses array and populate the
+      // dropdown with the house names and codes.
+      houses.forEach((item) => {
+        const option = document.createElement("OPTION");
+        option.value = item.code;
+        option.innerText = item.name;
+        house.appendChild(option);
+      });
+    })
+    .catch((err) => {
+      console.log("oops ", err.message);
+    });
     
 
   // DOM ref to the select dropdown
